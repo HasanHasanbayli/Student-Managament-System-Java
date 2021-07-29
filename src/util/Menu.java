@@ -2,7 +2,7 @@ package util;
 
 import service.MenuLoginService;
 import service.MenuRegisterService;
-import service.MenuService;
+import inter.MenuService;
 
 public enum Menu {
     LOGIN(1, "Login", new MenuLoginService()),
@@ -13,14 +13,13 @@ public enum Menu {
     SHOW_ALL_TEACHER(6, "Show all teacher", null),
     UNKNOWN;
 
+    private int number;
     private String label;
     private MenuService service;
-    private int number;
 
     Menu() {
 
     }
-
 
     Menu(int number, String label, MenuService service) {
         this.label = label;
@@ -30,7 +29,7 @@ public enum Menu {
 
     @Override
     public String toString() {
-        return label;
+        return number + "." + label;
     }
 
     public void process() {
@@ -43,5 +42,24 @@ public enum Menu {
 
     public String getLabel() {
         return label;
+    }
+
+    public static Menu find(int number) {
+        Menu[] menus = Menu.values();
+        for (int i = 0; i < menus.length; i++) {
+            if (menus[i].getNumber() == number) {
+                return menus[i];
+            }
+        }
+        return Menu.UNKNOWN;
+    }
+
+    public static void showAllMenu() {
+        Menu[] menus = Menu.values();
+        for (int i = 0; i < menus.length; i++) {
+            if (menus[i] != UNKNOWN) {
+                System.out.println(menus[i]);
+            }
+        }
     }
 }
