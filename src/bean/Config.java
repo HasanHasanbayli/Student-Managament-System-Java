@@ -1,14 +1,32 @@
 package bean;
 
+import util.FileUtility;
+
 import java.io.Serializable;
 
 public class Config implements Serializable {
     private static Config config = null;
     private Student[] students = new Student[0];
     private Teacher[] teachers = new Teacher[0];
+    private static boolean loggedIn;
+
+    public static void initialize() {
+        Object obj = FileUtility.readFileDeserialize("app.obj");
+        if (obj == null) {
+            return;
+        }
+
+        if (obj instanceof Config) {
+            config = (Config) obj;
+        }
+    }
 
     public Student[] getStudents() {
         return students;
+    }
+
+    public static void save() {
+        FileUtility.writeObjectFile(Config.intance(), "App.obj");
     }
 
     public void setStudents(Student[] students) {
@@ -46,5 +64,21 @@ public class Config implements Serializable {
             config = new Config();
         }
         return config;
+    }
+
+    public static Config getConfig() {
+        return config;
+    }
+
+    public static void setConfig(Config config) {
+        Config.config = config;
+    }
+
+    public static boolean isLoggedIn() {
+        return loggedIn;
+    }
+
+    public static void setLoggedIn(boolean loggedIn) {
+        Config.loggedIn = loggedIn;
     }
 }

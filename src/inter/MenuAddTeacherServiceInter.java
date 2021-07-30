@@ -1,4 +1,4 @@
 package inter;
 
-public interface MenuAddTeacherServiceInter extends MenuService{
+public interface MenuAddTeacherServiceInter extends SevableProcess {
 }

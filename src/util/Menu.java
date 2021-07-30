@@ -1,27 +1,27 @@
 package util;
 
-import service.MenuLoginService;
-import service.MenuRegisterService;
-import inter.MenuService;
+import bean.Config;
+import inter.Process;
+import service.*;
 
 public enum Menu {
     LOGIN(1, "Login", new MenuLoginService()),
     REGISTER(2, "Register", new MenuRegisterService()),
-    ADD_STUDENT(3, "Add student", null),
-    ADD_TEACHER(4, "Add teacher", null),
-    SHOW_ALL_STUDENT(5, "Show all student", null),
-    SHOW_ALL_TEACHER(6, "Show all teacher", null),
+    ADD_STUDENT(3, "Add student", new MenuAddStudentService()),
+    ADD_TEACHER(4, "Add teacher", new MenuAddTeacherService()),
+    SHOW_ALL_STUDENT(5, "Show all student", new MenuShowStudentService()),
+    SHOW_ALL_TEACHER(6, "Show all teacher", new MenuShowTeacherService()),
     UNKNOWN;
 
     private int number;
     private String label;
-    private MenuService service;
+    private Process service;
 
     Menu() {
 
     }
 
-    Menu(int number, String label, MenuService service) {
+    Menu(int number, String label, Process service) {
         this.label = label;
         this.service = service;
         this.number = number;
@@ -34,6 +34,7 @@ public enum Menu {
 
     public void process() {
         service.process();
+        MenuUtil.showMenu();
     }
 
     public int getNumber() {
@@ -58,7 +59,13 @@ public enum Menu {
         Menu[] menus = Menu.values();
         for (int i = 0; i < menus.length; i++) {
             if (menus[i] != UNKNOWN) {
-                System.out.println(menus[i]);
+                if (menus[i] == LOGIN || menus[i] == REGISTER) {
+                    if (!Config.isLoggedIn()) {
+                        System.out.println(menus[i]);
+                    }
+                } else if (Config.isLoggedIn()) {
+                    System.out.println(menus[i]);
+                }
             }
         }
     }

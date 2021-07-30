@@ -1,4 +1,4 @@
 package inter;
 
-public interface MenuLoginServiceInter extends MenuService {
+public interface MenuLoginServiceInter extends Process {
 }

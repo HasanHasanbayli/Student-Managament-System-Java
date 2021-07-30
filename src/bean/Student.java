@@ -19,4 +19,6 @@ public class Student extends Person {
     public void setScholarship(String scholarship) {
         this.scholarship = scholarship;
     }
+
+
 }

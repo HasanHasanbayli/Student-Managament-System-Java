@@ -7,10 +7,10 @@ public abstract class Person implements Serializable {
     private String surName;
     private int age;
 
-     Person() {
+    Person() {
     }
 
-     Person(String name, String surName, int age) {
+    Person(String name, String surName, int age) {
         this.name = name;
         this.surName = surName;
         this.age = age;
@@ -38,5 +38,10 @@ public abstract class Person implements Serializable {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return name + " " + surName;
     }
 }
