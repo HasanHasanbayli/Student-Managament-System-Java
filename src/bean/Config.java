@@ -6,12 +6,13 @@ import java.io.Serializable;
 
 public class Config implements Serializable {
     private static Config config = null;
+    private static final String fileName = "app.obj";
     private Student[] students = new Student[0];
     private Teacher[] teachers = new Teacher[0];
     private static boolean loggedIn;
 
     public static void initialize() {
-        Object obj = FileUtility.readFileDeserialize("app.obj");
+        Object obj = FileUtility.readFileDeserialize(fileName);
         if (obj == null) {
             return;
         }
@@ -26,7 +27,7 @@ public class Config implements Serializable {
     }
 
     public static void save() {
-        FileUtility.writeObjectFile(Config.intance(), "App.obj");
+        FileUtility.writeObjectFile(Config.intance(), fileName);
     }
 
     public void setStudents(Student[] students) {
